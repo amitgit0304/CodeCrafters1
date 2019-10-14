@@ -19,9 +19,26 @@ void setup(){
     Serial.println("");
     Serial.print("Connected to ");
     Serial.println(WiFi.SSID());
+    Serial.print("Local IP is ");
+    Serial.println(WiFi.localIP());
     }
 
-  IFTTTWebhook hook();
+//  IFTTTWebhook hook("cLoJtbpaT5nLHgmILYZ_ua", "notify");
+//
+//  Serial.println("Triggering webhook");
+//
+//  hook.trigger();
+//
+//  Serial.println("Triggered");
+  Serial.println("Connecting to host...");
+  
+  WiFiClientSecure client;
+
+  if(!client.connect("maker.ifttt.com", 443)){
+    Serial.println("Failed to connect");
+    }else{
+    Serial.println("Connected successfully");
+    }
   }
 
 void loop(){}
