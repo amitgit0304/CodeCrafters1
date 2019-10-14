@@ -1,12 +1,11 @@
 #include<ESP8266WiFi.h>
-
-String deviceId = "v6384AFE3CE54F56";
+#include<WiFiClient.h>
 
 void setup(){
 
   Serial.begin(115200);
 
-  Serial.println("Connecting to WiFi...");
+  Serial.println("\nConnecting to WiFi...");
 
   WiFi.disconnect();
   WiFi.mode(WIFI_STA);
@@ -29,28 +28,21 @@ void setup(){
   
   WiFiClient client;
 
-  if(!client.connect("api.pushingbox.com", 80)){
-    Serial.println("Failed to connect");
-    }else{
+  if(client.connect("maker.ifttt.com", 80)){
     Serial.println("Connected successfully");
 
-    String postStr = "devid=";
-    postStr += deviceId;
-    postStr += "\r\n\r\n";
+    String url = "/trigger/alarm/with/key/cLoJtbpaT5nLHgmILYZ_ua";
 
-    Serial.println("Sending data...");
+    Serial.println("Requesting webhook url...");
 
-    client.print("POST /pushingbox HTTP/1.1\n");
-    client.print("Host: api.pushingbox.com\n");
-    client.print("Connection: close\n");
-    client.print("Content-type: application/x-www-form-urlencoded\n");
-    client.print("Content-Length: ");
-    client.print(postStr.length());
-    client.print("\n\n");
-    client.print(postStr);
+    client.print(String("POST")+url+"HTTP/1.1\r\nHost: maker.ifttt.com\r\nUser-Agent: bhagatnagi\r\nConnection: close\r\n\r\n");
+
+    Serial.println("Request sent\nClosing Client...");
+
+    //client.close();
+    }else{
+    Serial.println("Failed to connect");
     }
-  client.stop();
-  Serial.println("Client Stopped");
   }
 
 void loop(){
