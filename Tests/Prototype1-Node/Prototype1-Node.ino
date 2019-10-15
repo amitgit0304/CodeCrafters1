@@ -1,11 +1,15 @@
 #include<ESP8266HTTPClient.h>
 #include<ESP8266WiFi.h>
+#include<SoftwareSerial.h>
 
 const String ssid = "lookamee";
 const String password = "supersimple0";
 
+SoftwareSerial serial(11, 12);
+
 void setup(){
   Serial.begin(115200);
+  serial.begin(115200);
 
   connectWiFi();
 }
@@ -13,9 +17,9 @@ void setup(){
 void loop(){
   if(WiFi.status()!=WL_CONNECTED){
     connectWiFi();
-    }
-  getHttp("notify", String(Serial.read()));
-  delay(60000);
+  }
+  getHttp("notify", String(serial.read()));
+  delay(10000);
 }
 
 void connectWiFi(){
