@@ -31,7 +31,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v)
     {
-        if( )
+        if(View.getId()==START){
+            txtView.setText("Started");
+    }
+        if(View.getId()==STOP){
+            txtView.setText('Stopped');
     }
     }
 }
