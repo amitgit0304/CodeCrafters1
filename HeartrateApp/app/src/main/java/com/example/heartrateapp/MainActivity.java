@@ -8,7 +8,11 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     @Override
-    Button button
+    Button START;
+    Button STOP;
+    TextView txtView;
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

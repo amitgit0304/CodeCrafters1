@@ -10,9 +10,10 @@
         android:id="@+id/button2"
         android:layout_width="149dp"
         android:layout_height="62dp"
-        android:text="EXIT APP"
-        tools:layout_editor_absoluteX="246dp"
-        tools:layout_editor_absoluteY="653dp" />
+        android:layout_marginBottom="48dp"
+        android:text="STOP"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="246dp" />
 
     <Button
         android:id="@+id/button"
@@ -20,16 +21,7 @@
         android:layout_height="62dp"
         android:text="Start"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="653dp" />
-
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="103dp"
-        android:layout_height="117dp"
-        android:text="ON/OFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="475dp" />
+        tools:layout_editor_absoluteY="621dp" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -38,6 +30,18 @@
         android:layout_height="356dp"
         android:max="100"
         android:progress="78"
-        tools:layout_editor_absoluteX="-5dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="-5dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="231dp"
+        android:layout_height="65dp"
+        android:text="Heartrate Monitor"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/progressBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
