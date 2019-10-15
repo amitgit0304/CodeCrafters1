@@ -14,7 +14,7 @@ void loop(){
   if(WiFi.status()!=WL_CONNECTED){
     connectWiFi();
     }
-  getHttp("notify", millis());
+  getHttp("notify", String(Serial.read()));
   delay(60000);
 }
 
@@ -36,11 +36,11 @@ void connectWiFi(){
   }
 }
 
-void getHttp(String event, int param1){
+void getHttp(String event, String param1){
   HTTPClient http;
 
   Serial.println("HTTP beginning...");
-  http.begin("http://maker.ifttt.com/trigger/"+event+"/with/key/cLoJtbpaT5nLHgmILYZ_ua/?value1="+String(param1));
+  http.begin("http://maker.ifttt.com/trigger/"+event+"/with/key/cLoJtbpaT5nLHgmILYZ_ua/?value1="+param1);
 
   Serial.println("HTTP getting...");
   int httpCode = http.GET();
