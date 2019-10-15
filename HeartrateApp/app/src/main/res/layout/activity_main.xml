@@ -11,6 +11,7 @@
         android:layout_width="149dp"
         android:layout_height="62dp"
         android:layout_marginBottom="48dp"
+        android:clickable="true"
         android:text="STOP"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="246dp" />
@@ -19,6 +20,7 @@
         android:id="@+id/button"
         android:layout_width="149dp"
         android:layout_height="62dp"
+        android:clickable="true"
         android:text="Start"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="621dp" />
@@ -28,8 +30,9 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="420dp"
         android:layout_height="356dp"
-        android:max="100"
-        android:progress="78"
+        android:indeterminate="true"
+        android:max="120"
+        android:progress="80"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="-5dp" />
