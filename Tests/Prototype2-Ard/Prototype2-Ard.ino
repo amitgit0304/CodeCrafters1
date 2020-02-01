@@ -4,11 +4,11 @@
 const int rs = 7, en = 9, d4 = 10, d5 = 11, d6 = 12, d7 = 13;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
-int pulsePin = A0;                 // Pulse Sensor purple wire connected to analog pin A0
-int blinkPin = 13;// pin to blink led at each beat
+int pulsePin = A0;                  // Pulse Sensor purple wire connected to analog pin A0
+int blinkPin = 13;                  // pin to blink led at each beat
 //temperature
 int val;
-int tempPin = 1;
+int tempPin = A1;
 // Volatile Variables, used in the interrupt service routine!
 volatile int BPM;                   // int that holds raw Analog in 0. updated every 2mS
 volatile int Signal;                // holds the incoming raw data
@@ -29,21 +29,16 @@ volatile boolean firstBeat = true;        // used to seed rate array so we start
 volatile boolean secondBeat = false;      // used to seed rate array so we startup with reasonable BPM
 long waitTime = 10000;
 
-SoftwareSerial serial(4, 5);
+SoftwareSerial serial(2, 3);
 
 void setup()
 {
   pinMode(blinkPin,OUTPUT);         // pin that will blink to your heartbeat!
-  serial.begin(115200);             // we agree to talk fast!
+  serial.begin(9600);             // we agree to talk fast!
   interruptSetup();                 // sets up to read Pulse Sensor signal every 2mS 
-                                    // IF YOU ARE POWERING The Pulse Sensor AT VOLTAGE LESS THAN THE BOARD VOLTAGE, 
-                                    // UN-COMMENT THE NEXT LINE AND APPLY THAT VOLTAGE TO THE A-REF PIN
-                                    //   analogReference(EXTERNAL);  
- lcd.begin(16, 2);
+  lcd.begin(16, 2);                 // initialize lcd
 }
 
-
-//  Where the Magic Happens
 void loop()
 {
    serialOutput();  
@@ -95,17 +90,16 @@ void serialOutput()
 
 void serialOutputWhenBeatHappens()
 {          
-   lcd.clear();
-   lcd.print("Heart-Beat Found ");
-   lcd.setCursor(1,1);
-   lcd.print("BPM: ");
-   lcd.setCursor(5,1);
+//    BPM = (BPM/3)+10;
+   
+   lcd.setCursor(13,0);
    lcd.print(BPM);
-   delay(300);
-
+ 
    if(millis()>waitTime && (BPM<60 || BPM>80)){
-    serial.write(BPM);
+    serial.print(String(BPM));
+    serial.flush();
     }
+    delay(300);
 }
 
 void arduinoSerialMonitorVisual(char symbol, int data )
