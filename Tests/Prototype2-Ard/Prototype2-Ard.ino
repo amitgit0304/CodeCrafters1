@@ -1,12 +1,14 @@
 #include<LiquidCrystal.h>
 #include<SoftwareSerial.h>
 
-const int rs = 2, en = 3, d4 = 8, d5 = 9, d6 = 10, d7 = 11;
+const int rs = 7, en = 9, d4 = 10, d5 = 11, d6 = 12, d7 = 13;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 int pulsePin = A0;                 // Pulse Sensor purple wire connected to analog pin A0
-int blinkPin = 13;                // pin to blink led at each beat
-
+int blinkPin = 13;// pin to blink led at each beat
+//temperature
+int val;
+int tempPin = 1;
 // Volatile Variables, used in the interrupt service routine!
 volatile int BPM;                   // int that holds raw Analog in 0. updated every 2mS
 volatile int Signal;                // holds the incoming raw data
@@ -27,7 +29,7 @@ volatile boolean firstBeat = true;        // used to seed rate array so we start
 volatile boolean secondBeat = false;      // used to seed rate array so we startup with reasonable BPM
 long waitTime = 10000;
 
-SoftwareSerial serial(0, 1);
+SoftwareSerial serial(4, 5);
 
 void setup()
 {
@@ -45,7 +47,18 @@ void setup()
 void loop()
 {
    serialOutput();  
-   
+  val = analogRead(tempPin);
+  float mv = ( val/1024.0)*5000;
+  float cel = mv/10;
+  float farh = (cel*9)/5 + 32;
+  lcd.setCursor(0, 0); 
+  lcd.print("Heart Rate :");
+
+  lcd.setCursor(0,1);
+  lcd.print("Temperature : ");
+  lcd.print(cel) ;
+  lcd.print("*C");
+  delay(1000);
   if (QS == true) // A Heartbeat Was Found
     {     
       // BPM and IBI have been Determined
