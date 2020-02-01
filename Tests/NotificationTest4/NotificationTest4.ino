@@ -4,13 +4,13 @@
 
 const String ssid = "lookatme";
 const String password = "supersimple0";
-String recieved;
+String received;
 
 SoftwareSerial fromUno(2, 14);
 bool sent = false;
 
 void setup(){
-  Serial.begin(9600);
+  Serial.begin(115200);
   fromUno.begin(9600);
 
   connectWiFi();
@@ -23,17 +23,15 @@ void loop(){
   if(fromUno.available()){
     Serial.println("UNO available");
     if(!sent){
-      recieved = fromUno.readString();
-      Serial.println("Recieved from Arduino : "+recieved);
-      getHttp("notify", recieved);
-      fromUno.flush();
+      received = fromUno.readString();
+      Serial.println("received from Arduino : "+received);
+      getHttp("notify", received);
       sent = true;
     }
     else{
       sent = false;
     }
   }
-//  delay(10);
 }
 
 void connectWiFi(){
@@ -72,8 +70,9 @@ void getHttp(String event, String param1){
     }
   }
   else{
-    Serial.println("HTTP get failed");  
+    Serial.println("HTTP get failed"+httpCode);  
   }
   Serial.println("Ending http...");
   http.end();
+  Serial.println("Done.");
 }

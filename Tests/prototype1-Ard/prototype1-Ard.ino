@@ -1,7 +1,7 @@
 #include<LiquidCrystal.h>
 
 const int pulsePin = A0;
-const int rs = 2, en = 3, d4 = 8, d5 = 9, d6 = 10, d7 = 11;
+const int rs = 7, en = 9, d4 = 10, d5 = 11, d6 = 12, d7 = 13;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 void setup() {
@@ -23,6 +23,6 @@ void loop() {
   
   Serial.println(reading);
 
-  delay(10);
+  delay(100);
   
 }
