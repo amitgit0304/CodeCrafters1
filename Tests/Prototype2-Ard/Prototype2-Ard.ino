@@ -49,7 +49,7 @@ void loop()
    serialOutput();  
   val = analogRead(tempPin);
   float mv = ( val/1024.0)*5000;
-  float cel = mv/10;
+  float cel = (mv/10)+7;
   float farh = (cel*9)/5 + 32;
   lcd.setCursor(0, 0); 
   lcd.print("Heart Rate :");
